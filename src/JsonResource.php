@@ -16,7 +16,7 @@ final class JsonResource
     }
     public function toArray(/* ... */): mixed
     {
-        return null;
+        return [];
     }
     public function when(/* ... */): mixed
     {
@@ -32,7 +32,7 @@ final class JsonResource
     }
     public function mergeWhen(/* ... */): mixed
     {
-        return null;
+        return $this;
     }
     public function response(/* ... */): mixed
     {
