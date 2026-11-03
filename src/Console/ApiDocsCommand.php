@@ -9,7 +9,7 @@ use Tavaan\Core\Contracts\Console\CommandInterface;
 /**
  * api:docs command.
  */
-final class Api_docsCommand implements CommandInterface
+final class ApiDocsCommand implements CommandInterface
 {
     public function name(): string
     {
