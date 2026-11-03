@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\Api\Middleware;
 
-use Tavaan\Core\Contracts\Config\RepositoryInterface as ConfigRepository;
-use Tavaan\Core\Contracts\Http\MiddlewareInterface;
-use Tavaan\Core\Contracts\Http\RequestInterface;
-use Tavaan\Core\Contracts\Http\ResponseInterface;
+use Tavaan\Engine\Config\Contracts\RepositoryInterface as ConfigRepository;
+use Tavaan\Engine\Http\Contracts\MiddlewareInterface;
+use Tavaan\Engine\Http\Contracts\RequestInterface;
+use Tavaan\Engine\Http\Contracts\ResponseInterface;
 use Tavaan\Engine\Http\Request;
 use Tavaan\Engine\Http\Response;
 

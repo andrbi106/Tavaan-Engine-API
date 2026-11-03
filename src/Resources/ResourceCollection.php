@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\Api\Resources;
 
-use Tavaan\Core\Contracts\Database\PaginatorInterface;
+use Tavaan\Engine\Database\Contracts\PaginatorInterface;
 use Tavaan\Engine\Http\Request;
 use Tavaan\Engine\Http\Response;
 
