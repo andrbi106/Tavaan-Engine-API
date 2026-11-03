@@ -57,7 +57,9 @@ class JsonResource
      */
     public function when(bool $condition, mixed $value, mixed $default = null): mixed
     {
-        return $condition ? value($value) : (is_callable($default) ? $default() : $default);
+        $resolved = is_callable($value) && !is_string($value) ? $value() : $value;
+        if ($condition) { return $resolved; }
+        return is_callable($default) && !is_string($default) ? $default() : $default;
     }
 
     /**
@@ -72,7 +74,7 @@ class JsonResource
         if (!is_object($resource)) { return $default; }
         // convention: relationLoaded($relation) method exists
         if (method_exists($resource, 'relationLoaded') && $resource->relationLoaded($relation)) {
-            return $value !== null ? value($value) : null;
+            return $value !== null ? (is_callable($value) && !is_string($value) ? $value() : $value) : null;
         }
         return $default;
     }
