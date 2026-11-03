@@ -1,2 +1,2 @@
 <?php
-return return ['error_invalid' => 'داده نامعتبر.'];;
+return ['error_invalid' => 'داده نامعتبر.'];
