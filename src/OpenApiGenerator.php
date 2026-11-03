@@ -65,18 +65,22 @@ final class OpenApiGenerator
                 if (is_array($v) || $v instanceof \stdClass) {
                     $arr = (array) $v;
                     if ($arr === []) {
-                        $out .= "{$pad}{$k}: []\n";
+                        $out .= $pad . $k . ": []\n";
                     } else {
-                        $out .= "{$pad}{$k}:\n" . $this->toYamlImpl($arr, $indent + 1);
+                        $out .= $pad . $k . ":\n" . $this->toYamlImpl($arr, $indent + 1);
                     }
                 } elseif (is_string($v)) {
-                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . '"' . addslashes($v) . '"\n';
+                    $prefix = $isList ? '- ' : $k . ': ';
+                    $out .= $pad . $prefix . '"' . addslashes($v) . "\"\n";
                 } elseif (is_bool($v)) {
-                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . ($v ? 'true' : 'false') . "\n";
+                    $prefix = $isList ? '- ' : $k . ': ';
+                    $out .= $pad . $prefix . ($v ? 'true' : 'false') . "\n";
                 } elseif (is_null($v)) {
-                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . "null\n";
+                    $prefix = $isList ? '- ' : $k . ': ';
+                    $out .= $pad . $prefix . "null\n";
                 } else {
-                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . (string) $v . "\n";
+                    $prefix = $isList ? '- ' : $k . ': ';
+                    $out .= $pad . $prefix . (string) $v . "\n";
                 }
             }
         }
