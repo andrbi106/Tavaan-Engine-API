@@ -6,15 +6,15 @@ namespace Tavaan\Engine\Api;
 
 final class OpenApiGenerator
 {
-    public function generate(/* ... */): mixed
+    public function generate()
     {
         return null;
     }
-    public function toYaml(/* ... */): mixed
+    public function toYaml()
     {
         return null;
     }
-    public function toJson(/* ... */): mixed
+    public function toJson(): string
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }

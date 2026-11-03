@@ -6,35 +6,35 @@ namespace Tavaan\Engine\Api;
 
 final class JsonResource
 {
-    public function make(/* ... */): mixed
+    public function make()
     {
         return null;
     }
-    public function collection(/* ... */): mixed
+    public function collection()
     {
         return null;
     }
-    public function toArray(/* ... */): mixed
+    public function toArray()
     {
         return [];
     }
-    public function when(/* ... */): mixed
+    public function when()
     {
         return null;
     }
-    public function whenLoaded(/* ... */): mixed
+    public function whenLoaded()
     {
         return null;
     }
-    public function whenCounted(/* ... */): mixed
+    public function whenCounted()
     {
         return null;
     }
-    public function mergeWhen(/* ... */): mixed
+    public function mergeWhen()
     {
-        return $this;
+        return null;
     }
-    public function response(/* ... */): mixed
+    public function response()
     {
         return null;
     }
