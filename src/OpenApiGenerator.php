@@ -4,18 +4,82 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\Api;
 
+/**
+ * OpenApiGenerator — emits OpenAPI 3.0 specs from route metadata.
+ */
 final class OpenApiGenerator
 {
-    public function generate()
+    /** @var array<string, mixed> */
+    private array $spec = [];
+
+    public function __construct(string $title = 'Tavaan API', string $version = '1.0.0')
     {
-        return null;
+        $this->spec = [
+            'openapi' => '3.0.3',
+            'info' => ['title' => $title, 'version' => $version],
+            'paths' => [],
+            'components' => ['schemas' => new \stdClass()],
+        ];
     }
-    public function toYaml()
+
+    /**
+     * generate — register a route/operation in the spec.
+     * @param array<string, mixed> $operation
+     */
+    public function generate(string $method, string $path, array $operation = []): self
     {
-        return null;
+        $method = strtolower($method);
+        if (!isset($this->spec['paths'][$path])) {
+            $this->spec['paths'][$path] = new \stdClass();
+        }
+        $this->spec['paths'][$path] = array_merge(
+            (array) $this->spec['paths'][$path],
+            [$method => array_merge(['responses' => ['200' => ['description' => 'OK']]], $operation)]
+        );
+        return $this;
     }
+
     public function toJson(): string
     {
-        return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
+        return json_encode($this->spec, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+
+    public function toYaml(): string
+    {
+        // Minimal hand-rolled YAML emitter (no external dep).
+        return $this->toYamlImpl($this->spec, 0);
+    }
+
+    public function toArray(): array
+    {
+        return $this->spec;
+    }
+
+    private function toYamlImpl(mixed $data, int $indent): string
+    {
+        $out = '';
+        $pad = str_repeat('  ', $indent);
+        if (is_array($data)) {
+            $isList = array_is_list($data);
+            foreach ($data as $k => $v) {
+                if (is_array($v) || $v instanceof \stdClass) {
+                    $arr = (array) $v;
+                    if ($arr === []) {
+                        $out .= "{$pad}{$k}: []\n";
+                    } else {
+                        $out .= "{$pad}{$k}:\n" . $this->toYamlImpl($arr, $indent + 1);
+                    }
+                } elseif (is_string($v)) {
+                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . '"' . addslashes($v) . '"\n';
+                } elseif (is_bool($v)) {
+                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . ($v ? 'true' : 'false') . "\n";
+                } elseif (is_null($v)) {
+                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . "null\n";
+                } else {
+                    $out .= "{$pad}" . ($isList ? '- ' : "{$k}: ") . (string) $v . "\n";
+                }
+            }
+        }
+        return $out;
     }
 }
