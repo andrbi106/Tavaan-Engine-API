@@ -15,7 +15,7 @@ use Tavaan\Engine\Api\JsonResource;
  */
 final class ApiScenarioTest extends TestCase
 {
-    public function t01_openapi_generate_includes_path(): void
+    public function test_t01_openapi_generate_includes_path(): void
     {
         // Scenario T-01
 $gen = new OpenApiGenerator();
@@ -23,7 +23,7 @@ $gen = new OpenApiGenerator();
         $json = $gen->toJson();
         $this->assertStringContainsString("/users", $json);
     }
-    public function t02_openapi_to_yaml_multiline(): void
+    public function test_t02_openapi_to_yaml_multiline(): void
     {
         // Scenario T-02
 $gen = new OpenApiGenerator();
@@ -33,7 +33,7 @@ $gen = new OpenApiGenerator();
         $this->assertStringContainsString("3.0.3", $yaml);
         $this->assertStringContainsString("/orders", $yaml);
     }
-    public function t03_json_resource_make_single(): void
+    public function test_t03_json_resource_make_single(): void
     {
         // Scenario T-03
 $r = JsonResource::make(["id" => 1, "name" => "Ali"]);
@@ -41,14 +41,14 @@ $r = JsonResource::make(["id" => 1, "name" => "Ali"]);
         $this->assertSame(1, $arr["id"]);
         $this->assertSame("Ali", $arr["name"]);
     }
-    public function t04_json_resource_collection_count(): void
+    public function test_t04_json_resource_collection_count(): void
     {
         // Scenario T-04
 $coll = JsonResource::collection([["id" => 1], ["id" => 2], ["id" => 3]]);
         $this->assertCount(3, $coll);
         $this->assertInstanceOf(JsonResource::class, $coll[0]);
     }
-    public function t05_when_returns_value_or_default(): void
+    public function test_t05_when_returns_value_or_default(): void
     {
         // Scenario T-05
 $r = JsonResource::make(null);
