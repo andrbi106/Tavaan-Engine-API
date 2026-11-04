@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tavaan\Engine\Api\Tests\Unit;
 
 use Tavaan\Testing\TestCase;
-use Tavaan\Engine\Api\OpenApiGenerator;
+use Tavaan\Engine\Api\OpenApi\OpenApiGenerator;
 use Tavaan\Engine\Api\JsonResource;
 
 /**
